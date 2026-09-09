@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Explorer | Home</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar">
+  <div class="logo">Travel Explorer</div>
+  <nav>
+    <a href="index.html" class="active">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact Us</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero">
+  <div class="hero-content">
+    <p class="eyebrow">Plan your next adventure</p>
+    <h1>Find a place worth remembering.</h1>
+    <p>Explore beaches, temples, and destinations around the world. Use the search box to find a recommendation for your next trip.</p>
+    <a class="button" href="#recommendations">Explore recommendations</a>
+  </div>
+</section>
+
+<section class="search-section">
+  <h2>What would you like to explore?</h2>
+  <p>Try searching for a beach, temple, or country.</p>
+  <div class="search-box">
+    <input id="searchInput" type="text" placeholder="Example: beach, temple, Japan">
+    <button id="searchButton">Search</button>
+  </div>
+  <div id="searchResults" class="search-results"></div>
+</section>
+
+<section id="recommendations" class="recommendations">
+<h2>Our recommendations</h2>
+
+<div class="category">
+  <div class="category-heading"><h3>Beach recommendations</h3><p>Relax by the water and enjoy a slower side of travel.</p></div>
+  <div class="cards">
+    <article class="card"><img src="images/beach-1.png" alt="Tropical beach"><div class="card-body"><h4>Bora Bora</h4><p>Clear water, calm beaches, and beautiful island scenery.</p></div></article>
+    <article class="card"><img src="images/beach-2.png" alt="Sunny beach"><div class="card-body"><h4>Maldives</h4><p>A peaceful destination known for its beaches and blue lagoons.</p></div></article>
+  </div>
+</div>
+
+<div class="category">
+  <div class="category-heading"><h3>Temple recommendations</h3><p>Visit places where history, architecture, and culture come together.</p></div>
+  <div class="cards">
+    <article class="card"><img src="images/temple-1.png" alt="Historic temple"><div class="card-body"><h4>Kyoto, Japan</h4><p>Traditional temples and quiet streets make Kyoto a memorable stop.</p></div></article>
+    <article class="card"><img src="images/temple-2.png" alt="Temple surrounded by nature"><div class="card-body"><h4>Bali, Indonesia</h4><p>Discover distinctive temples surrounded by tropical landscapes.</p></div></article>
+  </div>
+</div>
+
+<div class="category">
+  <div class="category-heading"><h3>Recommendations by country</h3><p>Choose a country and start planning what you want to see.</p></div>
+  <div class="cards">
+    <article class="card"><img src="images/country-1.png" alt="Mountain landscape in Switzerland"><div class="card-body"><h4>Switzerland</h4><p>Great for mountain views, scenic train journeys, and peaceful towns.</p></div></article>
+    <article class="card"><img src="images/country-2.png" alt="City and landmark in France"><div class="card-body"><h4>France</h4><p>Enjoy historic cities, famous landmarks, food, and local culture.</p></div></article>
+  </div>
+</div>
+</section>
+</main>
+
+<footer><p>&copy; 2026 Travel Explorer. Built as a travel recommendation project.</p></footer>
+<script src="script.js"></script>
+</body>
+</html>
