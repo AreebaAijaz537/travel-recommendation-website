@@ -24,32 +24,22 @@ const searchButton = document.getElementById("searchButton");
 const clearButton = document.getElementById("clearButton");
 const searchResults = document.getElementById("searchResults");
 
-const categories = [
-  document.getElementById("beachCategory"),
-  document.getElementById("templeCategory"),
-  document.getElementById("countryCategory")
-];
-
-function showAllCategories() {
-  categories.forEach(category => {
-    if (category) {
-      category.hidden = false;
-      category.style.display = "block";
-    }
+function hideAllCategories() {
+  document.querySelectorAll(".category").forEach(category => {
+    category.style.display = "none";
   });
 }
 
-function hideAllCategories() {
-  categories.forEach(category => {
-    if (category) {
-      category.hidden = true;
-      category.style.display = "none";
-    }
+function showAllCategories() {
+  document.querySelectorAll(".category").forEach(category => {
+    category.style.display = "block";
   });
 }
 
 function performSearch() {
-  if (!searchInput || !searchResults) return;
+  if (!searchInput || !searchResults) {
+    return;
+  }
 
   const query = searchInput.value.trim().toLowerCase();
 
@@ -60,44 +50,59 @@ function performSearch() {
     return;
   }
 
-  const match = recommendations.find(item =>
-    item.keywords.some(keyword =>
-      query === keyword ||
-      query.includes(keyword) ||
-      keyword.includes(query)
-    )
-  );
-
   hideAllCategories();
 
-  if (!match) {
+  let matchedRecommendation = null;
+
+  // Check every recommendation category
+  for (const recommendation of recommendations) {
+    for (const keyword of recommendation.keywords) {
+      if (
+        query === keyword ||
+        query.includes(keyword) ||
+        keyword.includes(query)
+      ) {
+        matchedRecommendation = recommendation;
+        break;
+      }
+    }
+
+    if (matchedRecommendation) {
+      break;
+    }
+  }
+
+  if (!matchedRecommendation) {
+    showAllCategories();
+
     searchResults.innerHTML = `
       <div class="result">
         <strong>No recommendation found.</strong><br>
         Try "beach", "temple", or "country".
       </div>
     `;
+
     return;
   }
 
-  const category = document.getElementById(match.category);
+  // Show ONLY the correct category
+  const selectedCategory = document.getElementById(
+    matchedRecommendation.category
+  );
 
-  if (category) {
-    category.hidden = false;
-    category.style.display = "block";
-  }
+  if (selectedCategory) {
+    selectedCategory.style.display = "block";
 
-  searchResults.innerHTML = `
-    <div class="result">
-      <strong>${match.title}</strong><br>
-      ${match.text}
-    </div>
-  `;
+    searchResults.innerHTML = `
+      <div class="result">
+        <strong>${matchedRecommendation.title}</strong><br>
+        ${matchedRecommendation.text}
+      </div>
+    `;
 
-  // Move the matching recommendations into view
-  if (category) {
+    // Move to the matching recommendations
     setTimeout(() => {
-      category.scrollIntoView({
+      selectedCategory.scrollIntoView({
         behavior: "smooth",
         block: "start"
       });
@@ -105,10 +110,14 @@ function performSearch() {
   }
 }
 
+
+// SEARCH BUTTON
 if (searchButton) {
   searchButton.addEventListener("click", performSearch);
 }
 
+
+// ENTER KEY
 if (searchInput) {
   searchInput.addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
@@ -117,6 +126,8 @@ if (searchInput) {
   });
 }
 
+
+// CLEAR BUTTON
 if (clearButton) {
   clearButton.addEventListener("click", function() {
     searchInput.value = "";
@@ -126,7 +137,7 @@ if (clearButton) {
 }
 
 
-// Contact form
+// CONTACT FORM
 const contactForm = document.getElementById("contactForm");
 
 if (contactForm) {
@@ -137,7 +148,7 @@ if (contactForm) {
 
     if (formMessage) {
       formMessage.textContent =
-        "Thanks for your message! This demo form is ready for GitHub Pages.";
+        "Thanks for your message! Your message has been received.";
     }
 
     contactForm.reset();
