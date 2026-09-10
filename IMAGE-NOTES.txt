@@ -1,0 +1,2 @@
+The travel images in this project were generated specifically for this student website project.
+They are included locally in the images folder so the GitHub Pages site does not depend on external image links.

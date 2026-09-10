@@ -5,3 +5,6 @@ if(searchButton)searchButton.addEventListener("click",performSearch);
 if(searchInput)searchInput.addEventListener("keydown",e=>{if(e.key==="Enter")performSearch()});
 const contactForm=document.getElementById("contactForm");
 if(contactForm)contactForm.addEventListener("submit",e=>{e.preventDefault();document.getElementById("formMessage").textContent="Thanks for your message! This demo form is ready for GitHub Pages.";contactForm.reset()});
+
+const clearButton=document.getElementById("clearButton");
+if(clearButton)clearButton.addEventListener("click",()=>{if(searchInput)searchInput.value="";if(searchResults)searchResults.innerHTML="";});
