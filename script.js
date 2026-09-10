@@ -15,7 +15,7 @@ const recommendations = [
     keywords: ["country", "countries", "switzerland", "swiss", "france", "paris"],
     category: "countryCategory",
     title: "Country recommendation",
-    text: "Explore Switzerland or France for different travel experiences."
+    text: "Explore Switzerland or France for different travel experiences, from scenic mountains to historic cities."
   }
 ];
 
@@ -23,125 +23,101 @@ const searchInput = document.getElementById("searchInput");
 const searchButton = document.getElementById("searchButton");
 const clearButton = document.getElementById("clearButton");
 const searchResults = document.getElementById("searchResults");
-
-function hideAllCategories() {
-  document.querySelectorAll(".category").forEach(category => {
-    category.style.display = "none";
-  });
-}
+const categories = Array.from(document.querySelectorAll(".category"));
 
 function showAllCategories() {
-  document.querySelectorAll(".category").forEach(category => {
+  categories.forEach(category => {
     category.style.display = "block";
   });
 }
 
+function hideAllCategories() {
+  categories.forEach(category => {
+    category.style.display = "none";
+  });
+}
+
+function findRecommendation(query) {
+  return recommendations.find(item =>
+    item.keywords.some(keyword =>
+      keyword === query || keyword.includes(query) || query.includes(keyword)
+    )
+  );
+}
+
 function performSearch() {
-  if (!searchInput || !searchResults) {
-    return;
-  }
+  if (!searchInput || !searchResults) return;
 
   const query = searchInput.value.trim().toLowerCase();
-
   searchResults.innerHTML = "";
 
-  if (query === "") {
+  if (!query) {
     showAllCategories();
     return;
   }
 
-  hideAllCategories();
+  const match = findRecommendation(query);
 
-  let matchedRecommendation = null;
-
-  // Check every recommendation category
-  for (const recommendation of recommendations) {
-    for (const keyword of recommendation.keywords) {
-      if (
-        query === keyword ||
-        query.includes(keyword) ||
-        keyword.includes(query)
-      ) {
-        matchedRecommendation = recommendation;
-        break;
-      }
-    }
-
-    if (matchedRecommendation) {
-      break;
-    }
-  }
-
-  if (!matchedRecommendation) {
+  if (!match) {
     showAllCategories();
-
     searchResults.innerHTML = `
       <div class="result">
         <strong>No recommendation found.</strong><br>
         Try "beach", "temple", or "country".
       </div>
     `;
-
     return;
   }
 
-  // Show ONLY the correct category
-  const selectedCategory = document.getElementById(
-    matchedRecommendation.category
-  );
+  // Hide every category first, then show only the matching category.
+  hideAllCategories();
 
-  if (selectedCategory) {
-    selectedCategory.style.display = "block";
+  const selectedCategory = document.getElementById(match.category);
 
-    searchResults.innerHTML = `
-      <div class="result">
-        <strong>${matchedRecommendation.title}</strong><br>
-        ${matchedRecommendation.text}
-      </div>
-    `;
+  if (!selectedCategory) return;
 
-    // Move to the matching recommendations
-    setTimeout(() => {
-      selectedCategory.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }, 100);
-  }
+  selectedCategory.style.display = "block";
+
+  searchResults.innerHTML = `
+    <div class="result">
+      <strong>${match.title}</strong><br>
+      ${match.text}
+    </div>
+  `;
+
+  // Scroll to the matching two-card recommendation section.
+  setTimeout(() => {
+    selectedCategory.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }, 100);
 }
 
-
-// SEARCH BUTTON
 if (searchButton) {
   searchButton.addEventListener("click", performSearch);
 }
 
-
-// ENTER KEY
 if (searchInput) {
-  searchInput.addEventListener("keydown", function(event) {
+  searchInput.addEventListener("keydown", event => {
     if (event.key === "Enter") {
       performSearch();
     }
   });
 }
 
-
-// CLEAR BUTTON
 if (clearButton) {
-  clearButton.addEventListener("click", function() {
+  clearButton.addEventListener("click", () => {
     searchInput.value = "";
     searchResults.innerHTML = "";
     showAllCategories();
   });
 }
 
-
-// CONTACT FORM
 const contactForm = document.getElementById("contactForm");
 
 if (contactForm) {
-  contactForm.addEventListener("submit", function(event) {
+  contactForm.addEventListener("submit", event => {
     event.preventDefault();
 
     const formMessage = document.getElementById("formMessage");
