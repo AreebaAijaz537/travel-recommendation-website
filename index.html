@@ -13,6 +13,9 @@
     <a href="index.html" class="active">Home</a>
     <a href="about.html">About Us</a>
     <a href="contact.html">Contact Us</a>
+    <input id="searchInput" type="text" placeholder="Search destinations" aria-label="Search destinations">
+    <button id="searchButton" type="button">Search</button>
+    <button id="clearButton" type="button">Clear</button>
   </nav>
 </header>
 
@@ -29,18 +32,13 @@
 <section class="search-section">
   <h2>What would you like to explore?</h2>
   <p>Try searching for a beach, temple, or country.</p>
-  <div class="search-box">
-    <input id="searchInput" type="text" placeholder="Example: beach, temple, Japan">
-    <button id="searchButton">Search</button>
-    <button id="clearButton" type="button">Clear</button>
-  </div>
   <div id="searchResults" class="search-results"></div>
 </section>
 
 <section id="recommendations" class="recommendations">
 <h2>Our recommendations</h2>
 
-<div class="category">
+<div class="category" id="beachCategory">
   <div class="category-heading"><h3>Beach recommendations</h3><p>Relax by the water and enjoy a slower side of travel.</p></div>
   <div class="cards">
     <article class="card"><img src="images/beach-1.jpg" alt="Tropical beach"><div class="card-body"><h4>Bora Bora</h4><p>Clear water, calm beaches, and beautiful island scenery.</p></div></article>
@@ -48,7 +46,7 @@
   </div>
 </div>
 
-<div class="category">
+<div class="category" id="templeCategory">
   <div class="category-heading"><h3>Temple recommendations</h3><p>Visit places where history, architecture, and culture come together.</p></div>
   <div class="cards">
     <article class="card"><img src="images/temple-1.jpg" alt="Historic temple"><div class="card-body"><h4>Kyoto, Japan</h4><p>Traditional temples and quiet streets make Kyoto a memorable stop.</p></div></article>
@@ -56,7 +54,7 @@
   </div>
 </div>
 
-<div class="category">
+<div class="category" id="countryCategory">
   <div class="category-heading"><h3>Recommendations by country</h3><p>Choose a country and start planning what you want to see.</p></div>
   <div class="cards">
     <article class="card"><img src="images/country-1.jpg" alt="Mountain landscape in Switzerland"><div class="card-body"><h4>Switzerland</h4><p>Great for mountain views, scenic train journeys, and peaceful towns.</p></div></article>

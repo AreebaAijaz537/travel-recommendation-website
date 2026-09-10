@@ -16,3 +16,6 @@ Travel Explorer is a simple travel recommendation website created as a web devel
 ## GitHub Pages
 
 This project is designed to run as a static website using GitHub Pages.
+
+
+Search test terms for the assignment: beach, temple, country. Each search displays the matching recommendation section with two images.
